@@ -9,7 +9,7 @@ const HomeScreen = ({ curimage }: any) => {
   const [image, setImage]: any = useState(null);
   const [coverCurrentOption, setCoverCurrentOption] = useState("Phrase");
   const [currentBkgShape, setCurrentBkgShape]: any = useState("rect");
-  const [backgroundColor, setBackGroundColor]: any = useState("#FFF");
+  const [backgroundColor, setBackGroundColor]: any = useState("#F5E6D9");
 
   useEffect(() => {
     const loadImage: any = new window.Image();
