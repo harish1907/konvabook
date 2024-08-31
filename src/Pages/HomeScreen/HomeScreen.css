@@ -1,0 +1,45 @@
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+}
+:root {
+    --primary-color: #000000;
+    --header-text-color: #fff;
+}
+
+/* Typograhpy */
+:root {
+    --font-heading: "Epilogue", serif;
+    --font-main: -apple-system, BlinkMacSystemFont,"Raleway", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+body,
+button, input, select, optgroup, textarea, p {
+    font-family: "Raleway", serif;
+}
+
+.site-identity p.site-title, h1.site-title a, h1.site-title, p.site-title a, .site-branding h1.site-title a {
+    font-family: "Lato", serif;
+}
+
+p.site-description {
+    font-family: "Raleway", serif !important;
+}
+
+.accordion-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.swatch input[type="radio"]:checked+label img {
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
