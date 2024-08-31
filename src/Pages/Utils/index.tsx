@@ -1,50 +1,50 @@
 export const colors = [
     {
         color: "#333333",
-        colorName: ""
+        colorName: "Black"
     },
     {
         color: "#FFF",
-        colorName: ""
+        colorName: "White"
     },
     {
         color: "#474747",
-        colorName: ""
+        colorName: "Noble"
     },
     {
         color: "#544F50",
-        colorName: ""
+        colorName: "Emperor"
     },
     {
         color: "#F5E6D9",
-        colorName: ""
+        colorName: "Parchment"
     },
     {
         color: "#EAD16A",
-        colorName: ""
+        colorName: "Maize"
     },
     {
         color: "#F6E5E1",
-        colorName: ""
+        colorName: "Potpourri"
     },
     {
         color: "#F6B9B1",
-        colorName: ""
+        colorName: "Mandy's Pink"
     },
     {
         color: "#FDDDCF",
-        colorName: ""
+        colorName: "Target Peach"
     },
     {
         color: "#E6843B",
-        colorName: ""
+        colorName: "Orange"
     },
     {
         color: "#50744B",
-        colorName: ""
+        colorName: "Forest Shade"
     },
     {
         color: "#E1E7DF",
-        colorName: ""
+        colorName: "Misty"
     },
 ];

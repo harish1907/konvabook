@@ -1,5 +1,11 @@
 import React from "react";
-import { Stage, Layer, Image as KonvaImage, Rect, Circle } from "react-konva";
+import {
+  Stage,
+  Layer,
+  Image as KonvaImage,
+  Rect,
+  Circle,
+} from "react-konva";
 
 const ShapeSelector = ({ currentBkgShape, backgroundColor }: any) => {
   return (
