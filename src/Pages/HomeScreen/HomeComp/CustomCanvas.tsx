@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Stage,
   Layer,
@@ -8,7 +8,34 @@ import {
   Text,
 } from "react-konva";
 
-const ShapeSelector = ({ currentBkgShape, backgroundColor }: any) => {
+const ShapeSelector = ({
+  currentBkgShape,
+  backgroundColor,
+  onShapeBounds,
+}: any) => {
+  const calculateShapeBounds: any = useCallback(() => {
+    let shapeBounds: any = {};
+    switch (currentBkgShape) {
+      case "rect":
+        shapeBounds = { x: 110, y: 75, width: 220, height: 120 };
+        break;
+      case "circle":
+        shapeBounds = { x: 115, y: 60, width: 200, height: 200 };
+        break;
+      case "squr":
+        shapeBounds = { x: 130, y: 75, width: 160, height: 160 };
+        break;
+      default:
+        shapeBounds = { x: 115, y: 75, width: 160, height: 160 };
+        break;
+    }
+    onShapeBounds(shapeBounds);
+  }, [currentBkgShape, onShapeBounds]);
+
+  useEffect(() => {
+    calculateShapeBounds();
+  }, [calculateShapeBounds]);
+
   return (
     <>
       {currentBkgShape === "rect" ? (
@@ -56,8 +83,14 @@ const ShapeSelector = ({ currentBkgShape, backgroundColor }: any) => {
   );
 };
 
-const CustomCanvas = ({ image, currentBkgShape, backgroundColor }: any) => {
+const CustomCanvas = ({
+  image,
+  currentBkgShape,
+  backgroundColor,
+  canvasText,
+}: any) => {
   const [imgProps, setImgProps] = useState({ width: 0, height: 0 });
+  const [shapeBounds, setShapeBounds]: any = useState(null);
 
   useEffect(() => {
     if (image) {
@@ -83,6 +116,54 @@ const CustomCanvas = ({ image, currentBkgShape, backgroundColor }: any) => {
     }
   }, [image]);
 
+  const handleShapeBounds = useCallback((bounds: any) => {
+    setShapeBounds((prevBounds: any) => {
+      if (
+        prevBounds?.x !== bounds.x ||
+        prevBounds?.y !== bounds.y ||
+        prevBounds?.width !== bounds.width ||
+        prevBounds?.height !== bounds.height
+      ) {
+        return bounds;
+      }
+      return prevBounds;
+    });
+  }, []);
+
+  const calculateFontSize = (text: any, width: any, height: any) => {
+    let fontSize = 19; // Start with a default font size
+    const textNode = document.createElement("span");
+    textNode.style.position = "absolute";
+    textNode.style.whiteSpace = "pre";
+    textNode.style.visibility = "hidden";
+    textNode.style.fontSize = `${fontSize}px`;
+    textNode.innerText = text;
+
+    document.body.appendChild(textNode);
+
+    while (
+      (textNode.offsetWidth > width || textNode.offsetHeight > height) &&
+      fontSize > 1
+    ) {
+      fontSize -= 1;
+      textNode.style.fontSize = `${fontSize}px`;
+    }
+
+    document.body.removeChild(textNode);
+
+    return fontSize;
+  };
+
+  const fontSize: any = useMemo(() => {
+    if (!canvasText || !shapeBounds) return 20;
+
+    const width = shapeBounds.width || shapeBounds.radius * 2;
+    const height = shapeBounds.height || shapeBounds.radius * 2;
+    const text = Array.isArray(canvasText) ? canvasText.join("\n") : canvasText;
+
+    return calculateFontSize(text, width, height);
+  }, [canvasText, shapeBounds]);
+
   return (
     <div>
       <Stage width={window.innerWidth * 0.3} height={window.innerHeight}>
@@ -101,16 +182,29 @@ const CustomCanvas = ({ image, currentBkgShape, backgroundColor }: any) => {
           <ShapeSelector
             backgroundColor={backgroundColor}
             currentBkgShape={currentBkgShape}
+            onShapeBounds={handleShapeBounds}
           />
-          <Text
-            text={"textMessage"}
-            fontSize={20}
-            fill="black"
-            x={(window.innerWidth * 0.35) / 2 - 130}
-            y={100}
-            width={220}
-            align="center"
-          />
+          {canvasText && shapeBounds && (
+            <Text
+              text={
+                Array.isArray(canvasText) ? canvasText.join("\n") : canvasText
+              }
+              fontSize={fontSize}
+              fill="black"
+              x={
+                shapeBounds.x +
+                (shapeBounds.width || shapeBounds.radius * 2) / 2
+              }
+              y={
+                shapeBounds.y +
+                (shapeBounds.height || shapeBounds.radius * 2) / 2
+              }
+              offsetX={(shapeBounds.width || shapeBounds.radius * 2) / 2}
+              offsetY={(shapeBounds.height || shapeBounds.radius * 2) / 2}
+              width={shapeBounds.width || shapeBounds.radius * 2}
+              align="center"
+            />
+          )}
         </Layer>
       </Stage>
     </div>

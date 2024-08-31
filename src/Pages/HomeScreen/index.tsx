@@ -10,6 +10,7 @@ const HomeScreen = ({ curimage }: any) => {
   const [coverCurrentOption, setCoverCurrentOption] = useState("Phrase");
   const [currentBkgShape, setCurrentBkgShape]: any = useState("rect");
   const [backgroundColor, setBackGroundColor]: any = useState("#F5E6D9");
+  const [canvasText, setCanvasText]: any = useState(["", "", ""]);
 
   useEffect(() => {
     const loadImage: any = new window.Image();
@@ -25,11 +26,14 @@ const HomeScreen = ({ curimage }: any) => {
         image={image}
         currentBkgShape={currentBkgShape}
         backgroundColor={backgroundColor}
+        canvasText={canvasText}
       />
       <div style={{marginLeft: "2%"}} className="accordion-content">
         <CoverOption
           coverCurrentOption={coverCurrentOption}
           setCoverCurrentOption={setCoverCurrentOption}
+          canvasText={canvasText}
+          setCanvasText={setCanvasText}
         />
         <div className="controls">
           <div className="more-cust">
