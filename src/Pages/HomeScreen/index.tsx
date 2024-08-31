@@ -26,7 +26,7 @@ const HomeScreen = ({ curimage }: any) => {
         currentBkgShape={currentBkgShape}
         backgroundColor={backgroundColor}
       />
-      <div className="accordion-content">
+      <div style={{marginLeft: "2%"}} className="accordion-content">
         <CoverOption
           coverCurrentOption={coverCurrentOption}
           setCoverCurrentOption={setCoverCurrentOption}
