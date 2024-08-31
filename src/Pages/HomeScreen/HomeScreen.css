@@ -32,7 +32,9 @@ p.site-description {
     flex-direction: column;
 }
 
-.swatch input[type="radio"]:checked+label img {
+.swatch label {
+    cursor: pointer;
+    display: inline-block;
     background: #fff;
     border: 1px solid #000;
     border-radius: 50%;
@@ -41,5 +43,9 @@ p.site-description {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    margin: 0 5px;
+}
+.swatch-container {
+    display: flex;
+    flex-wrap: wrap;
 }

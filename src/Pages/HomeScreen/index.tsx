@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Stage, Layer, Image as KonvaImage } from "react-konva";
 import "./HomeScreen.css";
 import CoverOption from "./HomeComp/CoverOption";
+import BackgroundShape from "./HomeComp/BackgroundShape";
+import CustomCanvas from "./HomeComp/CustomCanvas";
+import BackGroundColor from "./HomeComp/BackGroundColor";
 
 const HomeScreen = ({ curimage }: any) => {
-  const [image, setImage] = useState(null);
+  const [image, setImage]: any = useState(null);
   const [coverCurrentOption, setCoverCurrentOption] = useState("Phrase");
+  const [currentBkgShape, setCurrentBkgShape]: any = useState("rect");
+  const [backgroundColor, setBackGroundColor]: any = useState("#FFF");
 
   useEffect(() => {
     const loadImage: any = new window.Image();
@@ -17,11 +21,11 @@ const HomeScreen = ({ curimage }: any) => {
 
   return (
     <div className="mainContainer">
-      <div>
-        <Stage width={window.innerWidth * 0.35} height={window.innerHeight}>
-          <Layer>{image && <KonvaImage image={image} x={10} y={10} />}</Layer>
-        </Stage>
-      </div>
+      <CustomCanvas
+        image={image}
+        currentBkgShape={currentBkgShape}
+        backgroundColor={backgroundColor}
+      />
       <div className="accordion-content">
         <CoverOption
           coverCurrentOption={coverCurrentOption}
@@ -30,27 +34,10 @@ const HomeScreen = ({ curimage }: any) => {
         <div className="controls">
           <div className="more-cust">
             <h4>Select background shape</h4>
-            <div className="swatch-container">
-              <div className="swatch customily-swatch">
-                <input
-                  id="rect1"
-                  name="shapeSelect"
-                  type="radio"
-                  value="rectangular"
-                  className="needsclick needsfocus"
-                />
-                <label htmlFor="rect1" className="needsclick needsfocus">
-                  <img
-                    src="https://cdn.customily.com/shopify/assetFiles/swatches/may-designs-main.myshopify.com/af1a5c75-f3c9-474f-bc9d-590d16cae0d0/10/55e6ac90-8ac2-4261-a67b-4e8fee0ba436.png"
-                    loading="lazy"
-                    width="40"
-                    height="40"
-                    alt="rect1"
-                  />
-                </label>
-              </div>
-              {/* Add similar swatch items for circle, square, etc. */}
-            </div>
+            <BackgroundShape
+              currentBkgShape={currentBkgShape}
+              setCurrentBkgShape={setCurrentBkgShape}
+            />
           </div>
           <div className="more-cust">
             <h4>Select font style</h4>
@@ -78,30 +65,10 @@ const HomeScreen = ({ curimage }: any) => {
           </div>
           <div className="more-cust-1">
             <h4>Select background color</h4>
-            <div className="swatch-container">
-              <input type="hidden" id="backColor" value="#E7D9CD" />
-              <div className="swatch customily-swatch">
-                <input
-                  id="black"
-                  type="radio"
-                  name="colorSelect"
-                  value="black"
-                  className="needsclick needsfocus"
-                  // onClick={() => updateColor("#000000")}
-                />
-                <label
-                  htmlFor="black"
-                  className="needsclick needsfocus"
-                  style={{
-                    backgroundColor: "#000000",
-                    width: 40,
-                    height: 40,
-                    display: "inline-block",
-                  }}
-                ></label>
-              </div>
-              {/* Add similar color selection items */}
-            </div>
+            <BackGroundColor
+              backgroundColor={backgroundColor}
+              setBackGroundColor={setBackGroundColor}
+            />
           </div>
           <div className="more-cust-2">
             <h4>Select text color</h4>
